@@ -1,0 +1,6 @@
+Things to Do:
+*Implement !poke help
+*Figure out how to display a trainer's pokemon
+*Switch between trainers
+*Write instructions
+*More features?
