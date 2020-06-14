@@ -21,14 +21,14 @@ class Game:
         confirm = ''
         while confirm.lower() != 'y':
 
-            name = input('Now tell me, what is your name? ')
+            name = input('\nWhat is your name? Enter \'exit\' to cancel trainer switch. ')
+
+            if name.lower() == 'exit':
+                return
 
             if name in self.trainers.keys():
                 print('Sorry, that name is taken. Please choose another name.')
                 continue
-
-            if name.lower() == 'exit':
-                return
 
             confirm = input('Ah, so your name is ' + str(name) + '? (Y/n) ')
 
@@ -43,13 +43,42 @@ class Game:
         self.trainers[name] = new_trainer
         self.current_trainer = str(name)
 
-        print('Very good ' + str(name) + '! Welcome to the wonderful world of Pokemon!\n')
-    
+        print('Very good ' + str(name) + '! Welcome to the wonderful world of Pokemon!')
+
+    def switch_trainer(self):
+
+        # Print list of available trainers
+        def print_trainers():
+            print('\nAvailable Trainers:')
+            for key, value in self.trainers.items():
+                if key != self.current_trainer:
+                    print(key)
+
+        while 1:
+
+            print('\nPlease enter the name of the trainer you would like to switch to.')
+            print('Enter \'list\' to print a list of trainers.')
+            switch = input('Enter \'exit\' to cancel trainer switch. ')
+
+            if switch == '':
+                print('Please enter a value.')
+                continue
+
+            if switch.lower() == 'exit':
+                return
+
+            if switch.lower() == 'list':
+                print_trainers()
+                continue
+            
+            if switch not in self.trainers:
+                print('Trainer not found.')
+                continue
+
     # Function for showing current trainer details
     def show_current(self):
         print('\nCurrent Trainer:')
         self.trainers[self.current_trainer].show_stats()
-        print('\n')
 
     # Function for spawning pokemon
     def spawn_pokemon(self):
@@ -151,7 +180,7 @@ class Game:
         self.trainers[name] = new_trainer
         self.current_trainer = str(name)
 
-        print('Very good ' + str(name) + '! It\'s time for you to dive into the world of Pokemon!\n')
+        print('Very good ' + str(name) + '! It\'s time for you to dive into the world of Pokemon!')
 
         # Main loop of the game
         while 1:
@@ -175,6 +204,10 @@ class Game:
                     if len(command_parse) == 2 and command_parse[1].lower() == 'add':
                         self.add_trainer()
 
+                    # Switch to a different trainer
+                    elif len(command_parse) == 2 and command_parse[1].lower() == 'switch':
+                        self.switch_trainer()
+
                     # Show current trainer
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'current':
                         self.show_current()
@@ -192,6 +225,7 @@ class Game:
                         return
 
                     else:
+                        print('Command: ' + str(command))
                         print('\nInvalid command. See \'!poke help\' for more information.\n')
                 else:
                     spawn_clock += 1
