@@ -1,5 +1,5 @@
 # Pokebot-Sample
-Sample program of the Pokebot implementation (non-server implementation).
+Sample program for the Pokebot implementation (non-server implementation).
 
 ---
 
@@ -17,19 +17,24 @@ python main.py
 python3 main.py
 ```
 
+---
+
 ## Some Commands
 
 * All valid commands to the program will be prefixed with '!poke'. 
-* Some of the commands are listed below:
+* Some commands are listed below:
 
 ```
 !poke add
-```
+-This command creates a new trainer.
 
-```
-!poke show
-```
+!poke remove
+-This command removes a trainer.
+-The trainer you are currently using cannot be removed.
 
-```
-!poke exit
+!poke switch
+-This command switches to another trainer.
+
+!poke current
+-This command shows some stats on the trainer you are currently using.
 ```
