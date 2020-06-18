@@ -1,8 +1,9 @@
 from pokedex import *
 
 class Pokemon:
-    def __init__(self, num, level=1, nickname=''):
+    def __init__(self, num, level, nickname=''):
         self.id = num
+        self.level = level
         self.p_name = Pokedex[num]['Name']
 
         self.type = Pokedex[num]['Type']
@@ -11,7 +12,6 @@ class Pokemon:
         self.evolve_to = Pokedex[num]['Evolve_To']
 
         # Optional Arguments
-        self.level = level
         self.nickname = nickname
 
     # Prints data on the pokemon

@@ -1,5 +1,6 @@
 # Highest pokedex number of available pokemon set
-HIGH_BOUND = 3
+LOW_BOUND = 1
+HIGH_BOUND = 9
 
 Pokedex = {
     1: {
@@ -8,7 +9,7 @@ Pokedex = {
         'Ability': 'Overgrow',
         'Evolve_Lv': 16,
         'Evolve_To': 2,
-        'Image_url': 'https://img.favpng.com/14/0/16/bulbasaur-ivysaur-squirtle-venusaur-charmander-png-favpng-2JDAkQF0tHEjR2y5X4b5xdjhG.jpg'
+        'Image_url': 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png'
        },
     2: {
         'Name': 'Ivysaur',
@@ -25,5 +26,53 @@ Pokedex = {
         'Evolve_Lv': -1,
         'Evolve_To': -1,
         'Image_url': 'https://cdn.bulbagarden.net/upload/thumb/a/ae/003Venusaur.png/1200px-003Venusaur.png'
+       },
+    4: {
+        'Name': 'Charmander',
+        'Type': ['Fire'],
+        'Ability': 'Blaze',
+        'Evolve_Lv': 16,
+        'Evolve_To': 5,
+        'Image_url': 'https://cdn.bulbagarden.net/upload/7/73/004Charmander.png'
+       },
+    5: {
+        'Name': 'Charmeleon',
+        'Type': ['Fire'],
+        'Ability': 'Blaze',
+        'Evolve_Lv': 36,
+        'Evolve_To': 6,
+        'Image_url': 'https://img.pokemondb.net/artwork/large/charmeleon.jpg'
+       },
+    6: {
+        'Name': 'Charizard',
+        'Type': ['Fire', 'Flying'],
+        'Ability': 'Blaze',
+        'Evolve_Lv': -1,
+        'Evolve_To': -1,
+        'Image_url': 'https://static.pokemonpets.com/images/monsters-images-800-800/6-Charizard.png'
+       },
+    7: {
+        'Name': 'Squirtle',
+        'Type': ['Water'],
+        'Ability': 'Torrent',
+        'Evolve_Lv': 16,
+        'Evolve_To': 8,
+        'Image_url': 'https://cdn.bulbagarden.net/upload/3/39/007Squirtle.png'
+       },
+    8: {
+        'Name': 'Wartortle',
+        'Type': ['Water'],
+        'Ability': 'Torrent',
+        'Evolve_Lv': 36,
+        'Evolve_To': 9,
+        'Image_url': 'https://img.pokemondb.net/artwork/large/wartortle.jpg'
+       },
+    9: {
+        'Name': 'Blastoise',
+        'Type': ['Water'],
+        'Ability': 'Torrent',
+        'Evolve_Lv': -1,
+        'Evolve_To': -1,
+        'Image_url': 'https://img.pokemondb.net/artwork/large/blastoise.jpg'
        }
 }

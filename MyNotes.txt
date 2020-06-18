@@ -1,5 +1,6 @@
 Things to Do:
-*Implement !poke help
 *Figure out how to display a trainer's pokemon
-*Write instructions
+*Figure out how to properly spawn and store pokemon
+*Implement !poke help
+*Write instructions (in progress)
 *More features?

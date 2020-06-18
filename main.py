@@ -12,8 +12,7 @@ class Game:
     def __init__(self):
         self.trainers = {}
         self.current_trainer = ''
-        self.pokemon = []
-        self.pokemon_stats = {}
+        self.pokemon = {}
 
     # Function for creating a new trainer
     def add_trainer(self):
@@ -22,9 +21,10 @@ class Game:
         confirm = ''
         while confirm.lower() != 'y':
 
-            name = input('\nWhat is your name? Enter \'exit\' to cancel trainer add. ')
+            name = input('What is your name? Enter \'exit\' to cancel trainer add. ')
 
             if name.lower() == 'exit':
+                print()
                 return
 
             if name in self.trainers.keys():
@@ -52,13 +52,13 @@ class Game:
         # Verify that there are other trainers to remove
         # You cannot remove the trainer you are current playing as
         if len(self.trainers) == 1:
-            print('\nYou cannot delete the trainer you are currently using!\n')
+            print('You cannot delete the trainer you are currently using!\n')
             return
 
         # Prompt the user for input and remove the trainer
         while 1:
 
-            print('\nPlease enter the name of the trainer you would like to remove.')
+            print('Please enter the name of the trainer you would like to remove.')
             print('Enter \'list\' to print a list of trainers.')
             remove = input('Enter \'exit\' to cancel trainer removal. ')
 
@@ -95,13 +95,13 @@ class Game:
 
         # Verify that there are other trainers to remove
         if len(self.trainers) == 1:
-            print('\nThere are no trainers to switch to.\n')
+            print('There are no trainers to switch to.\n')
             return
 
         # Prompt the user for input and switch to the trainer
         while 1:
 
-            print('\nPlease enter the name of the trainer you would like to switch to.')
+            print('Please enter the name of the trainer you would like to switch to.')
             print('Enter \'list\' to print a list of trainers.')
             switch = input('Enter \'exit\' to cancel trainer switch. ')
 
@@ -129,7 +129,7 @@ class Game:
     def show_current(self):
         print('\nCurrent Trainer:')
         self.trainers[self.current_trainer].show_stats()
-        print('')   # Adds a newline - print() will add a newline by default
+        print()   # Adds a newline - print() will add a newline by default
 
     # Function for printing a list of available trainers
     def print_trainers(self):
@@ -141,45 +141,69 @@ class Game:
     # Function for spawning pokemon
     def spawn_pokemon(self):
 
+        # Only 5 Pokemon may spawn in at a time
+        if len(self.pokemon) == 5:
+            return
+
         # Randomly select the next pokemon 
-        next_Pokemon = random.randint(1,3)
+        next_pokemon = random.randint(LOW_BOUND, HIGH_BOUND)
 
         # Verify that two of the same Pokemon will not spawn at the same time
-        first_Pokemon = next_Pokemon
-        while next_Pokemon in self.pokemon:
-            next_Pokemon += 1
-
-            # Bind the range of random values to the range of valid Pokemon keys
-            if next_Pokemon > HIGH_BOUND:
-                next_Pokemon = 1
-
-            # Prevent infinite loops in spawning Pokemon
-            # If this case is true, then all Pokemon are spawned in
-            if next_Pokemon == first_Pokemon:
-                return
-
-        # Add the pokemon to the list of available Pokemon
-        self.pokemon.append(next_Pokemon)
+        while next_pokemon in self.pokemon:
+            next_pokemon = random.randint(LOW_BOUND, HIGH_BOUND)
 
         # Randomly generate stats for the pokemon
-        self.pokemon_stats[next_Pokemon] = {
-            'Level': random.randint(1,99)
+        new_pokemon = {
+            'Name': Pokedex[next_pokemon]['Name'],
+            'Level': random.randint(1,99),
+            'URL': Pokedex[next_pokemon]['Image_url']
         }
+
+        # Add the pokemon to the list of available Pokemon
+        self.pokemon[next_pokemon] = new_pokemon
 
         # Prompt user to name the pokemon
         print('\nWho\'s that Pokemon?')
-        print(Pokedex[next_Pokemon]['Image_url'] + '\n')
+        print(new_pokemon['URL'] + '\n')
 
     # Function for matching user input with available Pokemon
-    def match_pokemon(self, name):
+    def catch_pokemon(self, name):
 
-        # Map the values of each available pokemon to their corresponding name
-        poke_list = map((lambda num: Pokedex[num]['Name']), self.pokemon)
+        # Verify that there are Pokemon to catch
+        if len(self.pokemon) == 0:
+            print('There are no Pokemon to catch!\n')
+            return
 
         # Search through the available pokemon list
-        for i,p in enumerate(poke_list, start=0):
-            if p.lower() == name.lower():
-                print('Congratulations! You caught a level ' + str(self.pokemon_stats[self.pokemon[i]]['Level']) + ' ' + str(p) + '!\n')
+        for key,p in self.pokemon.items():
+            if p['Name'].lower() == name.lower():
+                print('Congratulations! You caught a level ' + str(p['Level']) + ' ' + p['Name'] + '!\n')
+
+                # Prompt user for a nickname
+                while 1:
+
+                    confirm = input('Would you like give your caught ' + p['Name'] + ' a nickname? (Y/n) ')
+
+                    if confirm.lower() != 'y' and confirm.lower() != 'n':
+                        print('Please enter \'Y\' or \'n\'.')
+                        continue
+                    elif confirm.lower() == 'n':
+                        break;
+                    else:
+                        nickname = input('What should its nickname be? ')
+                        break;
+
+                # Add the Pokemon to the trainer who caught it
+                self.trainers[self.current_trainer].add_pokemon(
+                    key,
+                    p['Level'],
+                    nickname=nickname)
+
+                if nickname != '':
+                    print('Successfully stored ' + str(nickname) + '.\n')
+                else:
+                    print('Successfully stored ' + p['Name'] + '.\n')
+
                 return
 
         # No available pokemon matched the response
@@ -192,16 +216,19 @@ class Game:
         # Verify that there are Pokemon available
         if len(self.pokemon) != 0:
 
-            print('\nWho\'s that Pokemon?')
+            print('Who\'s that Pokemon?')
 
-            num = 1
-            for p in self.pokemon:
-                print(str(num) + '. ' + Pokedex[p]['Image_url'])
-                num += 1
-            print('')
+            for val,(num,p) in enumerate(self.pokemon.items(), start=1):
+                print(str(val) + '. ' + p['URL'])
+            print()
 
         else:
-            print('\nThere are no Pokemon to catch. :(\n')
+            print('There are no Pokemon to catch. :(\n')
+
+    # List Pokemon owned by the current trainer
+    def list_pokemon(self):
+        self.trainers[self.current_trainer].show_pokemon()
+        print()
 
     # Main game loop
     def run(self):
@@ -280,12 +307,16 @@ class Game:
                         self.show_current()
 
                     # Guess a pokemon
-                    elif len(command_parse) == 3 and command_parse[1].lower() == 'match':
-                        self.match_pokemon(command_parse[2])
+                    elif len(command_parse) == 3 and command_parse[1].lower() == 'catch':
+                        self.catch_pokemon(command_parse[2])
 
-                    # Show available pokemon
+                    # Show available Pokemon
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'show':
                         self.show_pokemon()
+
+                    # List currently owned Pokemon
+                    elif len(command_parse) == 2 and command_parse[1].lower() == 'list':
+                        self.list_pokemon()
 
                     # Exit the game
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'exit':
