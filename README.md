@@ -37,4 +37,11 @@ python3 main.py
 
 !poke current
 -This command shows some stats on the trainer you are currently using.
+
+!poke catch <pokemon>
+-This command attempts to catch a pokemon.
+-If the name matches a pokemon that is currently spawned in, the trainer will catch it.
+
+!poke show
+-This command shows all image urls of spawned-in pokemon.
 ```

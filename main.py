@@ -131,12 +131,18 @@ class Game:
         self.trainers[self.current_trainer].show_stats()
         print()   # Adds a newline - print() will add a newline by default
 
+    # List Pokemon owned by the current trainer
+    def list_pokemon(self):
+        self.trainers[self.current_trainer].show_pokemon()
+        print()
+
     # Function for printing a list of available trainers
     def print_trainers(self):
         print('\nAvailable Trainers:')
         for key, value in self.trainers.items():
             if key != self.current_trainer:
                 print(key)
+        print()
 
     # Function for spawning pokemon
     def spawn_pokemon(self):
@@ -225,11 +231,6 @@ class Game:
         else:
             print('There are no Pokemon to catch. :(\n')
 
-    # List Pokemon owned by the current trainer
-    def list_pokemon(self):
-        self.trainers[self.current_trainer].show_pokemon()
-        print()
-
     # Main game loop
     def run(self):
 
@@ -245,7 +246,7 @@ class Game:
         print('Your very own Pokémon adventure is about to unfold!')
         time.sleep(3)
         print('A world of dreams and adventures with Pokémon awaits! Let\'s go!\n')
-        time.sleep(1)
+        time.sleep(3)
 
         # Continually prompt the user for a name
         name = input('Now tell me, what is your name? ')
@@ -306,6 +307,10 @@ class Game:
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'current':
                         self.show_current()
 
+                    # List currently owned Pokemon
+                    elif len(command_parse) == 2 and command_parse[1].lower() == 'list':
+                        self.list_pokemon()
+
                     # Guess a pokemon
                     elif len(command_parse) == 3 and command_parse[1].lower() == 'catch':
                         self.catch_pokemon(command_parse[2])
@@ -313,10 +318,6 @@ class Game:
                     # Show available Pokemon
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'show':
                         self.show_pokemon()
-
-                    # List currently owned Pokemon
-                    elif len(command_parse) == 2 and command_parse[1].lower() == 'list':
-                        self.list_pokemon()
 
                     # Exit the game
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'exit':
@@ -332,5 +333,7 @@ class Game:
 
             self.spawn_pokemon()
 
-game = Game()
-game.run()
+# Main function
+if __name__ == '__main__':
+    game = Game()
+    game.run()

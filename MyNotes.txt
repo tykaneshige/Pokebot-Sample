@@ -1,6 +1,6 @@
 Things to Do:
-*Figure out how to display a trainer's pokemon
-*Figure out how to properly spawn and store pokemon
+*Figure out how to order Pokemon
+*Figure out how to despawn Pokemon
+*Figure out how to prompt more verbose descriptions
 *Implement !poke help
 *Write instructions (in progress)
-*More features?
