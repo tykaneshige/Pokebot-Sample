@@ -39,7 +39,7 @@ python3 main.py
 -This command shows some stats on the trainer you are currently using.
 
 !poke list
--This command shows the pokemon currently owned by the trainer
+-This command shows the pokemon currently owned by the trainer.
 
 !poke catch <pokemon>
 -This command attempts to catch a pokemon.
