@@ -25,21 +25,23 @@ python3 main.py
 * Some commands are listed below:
 
 ```
-!poke add
+!poke add <trainer_name>
 -This command creates a new trainer.
+-This command does not automatically switch trainers.
 
-!poke remove
+!poke remove <trainer_name>
 -This command removes a trainer.
 -The trainer you are currently using cannot be removed.
 
-!poke switch
+!poke switch <trainer_name>
 -This command switches to another trainer.
 
 !poke current
 -This command shows some stats on the trainer you are currently using.
+-This command also lists other available trainers.
 
 !poke list
--This command shows the pokemon currently owned by the trainer
+-This command shows the pokemon currently owned by the trainer.
 
 !poke catch <pokemon>
 -This command attempts to catch a pokemon.

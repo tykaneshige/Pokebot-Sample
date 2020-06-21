@@ -1,7 +1,7 @@
 Things to Do:
 *Figure out how to despawn Pokemon
 *Figure out how to prompt more verbose descriptions
-*Implement !poke order
+*Implement !poke order (HARD)
 *Implement !poke release
 *Implement !poke help
 *Write instructions (in progress)

@@ -5,7 +5,9 @@ class Trainer:
         self.name = name
         self.pokemon_caught = 0
         self.pokemon = {}
+        self.next_key = 0
         self.pokemon_order = []
+        self.sort_type = 'none'
 
     # Function to catch Pokemon
     def add_pokemon(self, num, level, nickname=''):
@@ -14,11 +16,12 @@ class Trainer:
         new_pokemon = Pokemon(num, level=level, nickname=nickname)
 
         # Add the pokemon to the list of pokemon owned by this trainer
-        self.pokemon_order.append(len(self.pokemon))
-        self.pokemon[len(self.pokemon)] = new_pokemon
+        self.pokemon_order.append(self.next_key)
+        self.pokemon[self.next_key] = new_pokemon
 
         # Increment the number caught
         self.pokemon_caught += 1
+        self.next_key += 1
 
     # Prints a list of Pokemon owned by this trainer
     def show_pokemon(self):

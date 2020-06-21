@@ -15,133 +15,99 @@ class Game:
         self.pokemon = {}
 
     # Function for creating a new trainer
-    def add_trainer(self):
+    def add_trainer(self, name):
+
+        # Verify that two trainers do not share the same name
+        if name in self.trainers.keys():
+            print('Sorry, that name is taken. Please choose another name.\n')
+            return
 
         # Continue to prompt the user for input until a valid name is passed
         confirm = ''
-        while confirm.lower() != 'y':
+        while 1:
 
-            name = input('What is your name? Enter \'exit\' to cancel trainer add. ')
+            confirm = input('Would you like to add trainer \'' + str(name) + '\'? (Y/n) ')
 
-            if name.lower() == 'exit':
-                print()
+            if confirm.lower() == 'y':
+                break
+            elif confirm.lower() == 'n':
+                print('Exiting trainer add.\n')
                 return
-
-            if name in self.trainers.keys():
-                print('Sorry, that name is taken. Please choose another name.')
-                continue
-
-            confirm = input('Ah, so your name is ' + str(name) + '? (Y/n) ')
-
-            while 1:
-                if confirm.lower() == 'y' or confirm.lower() == 'n':
-                    break
-                else:
-                    confirm = input('Please enter Y or n. ')
+            else:
+                print('Please enter Y or n.')
 
         # Store trainer data
         new_trainer = Trainer(name)
         self.trainers[name] = new_trainer
-        self.current_trainer = str(name)
 
         print('Very good ' + str(name) + '! Welcome to the wonderful world of Pokemon!\n')
 
     # Function for removing trainers
-    def remove_trainer(self):
+    def remove_trainer(self, name):
 
-        # Verify that there are other trainers to remove
         # You cannot remove the trainer you are current playing as
-        if len(self.trainers) == 1:
+        if name == self.current_trainer:
             print('You cannot delete the trainer you are currently using!\n')
+            return
+
+        # Verify that the trainer exists
+        if name not in self.trainers:
+            print('Trainer not found.\n')
             return
 
         # Prompt the user for input and remove the trainer
         while 1:
 
-            print('Please enter the name of the trainer you would like to remove.')
-            print('Enter \'list\' to print a list of trainers.')
-            remove = input('Enter \'exit\' to cancel trainer removal. ')
+            # Prompt the user for confirmation
+            confirm = input('Are you sure you would like to remove trainer \'' + str(name) + '\'? This action cannot be undone. (Yes/No) ')
 
-            if remove == '':
-                print('\nPlease enter a value.')
-                continue
-
-            if remove.lower() == 'exit':
+            if confirm.lower() == 'yes':
+                print('Deleting trainer \'' + str(name) + '\'...')
+                self.trainers.pop(name, None)
+                time.sleep(2)
+                print('Trainer deleted.\n')
                 return
-
-            if remove.lower() == 'list':
-                self.print_trainers()
-                continue
-
-            # Verify that the trainer exists
-            if remove not in self.trainers:
-                print('Trainer not found.')
-                continue
+            elif confirm.lower() == 'no':
+                print('Exiting trainer removal.\n')
+                return
             else:
-                # Prompt the user for confirmation
-                confirm = input('\nAre you sure you would like to remove trainer \'' + str(remove) + '\'? This action cannot be undone. (Yes/No) ')
-
-                if confirm.lower() == 'yes':
-                    print('Deleting trainer \'' + str(remove) + '\'...')
-                    self.trainers.pop(remove, None)
-                    time.sleep(2)
-                    print('Trainer deleted.\n')
-                    return
-                else:
-                    break
+                print('Please enter \'Yes\' or \'no\'.')
 
     # Function for switching between trainers
-    def switch_trainer(self):
+    def switch_trainer(self, name):
 
         # Verify that there are other trainers to remove
         if len(self.trainers) == 1:
             print('There are no trainers to switch to.\n')
             return
 
-        # Prompt the user for input and switch to the trainer
-        while 1:
-
-            print('Please enter the name of the trainer you would like to switch to.')
-            print('Enter \'list\' to print a list of trainers.')
-            switch = input('Enter \'exit\' to cancel trainer switch. ')
-
-            if switch == '':
-                print('Please enter a value.')
-                continue
-
-            if switch.lower() == 'exit':
-                return
-
-            if switch.lower() == 'list':
-                self.print_trainers()
-                continue
-
-            # Verify that the trainer exists
-            if switch not in self.trainers:
-                print('Trainer not found.')
-                continue
-            else:
-                print('Successively switched to trainer \'' + str(switch) + '\'.\n')
-                self.current_trainer = str(switch)
-                break
+        # Verify that the trainer exists
+        if name not in self.trainers:
+            print('Trainer not found.\n')
+            return
+        else:
+            print('Successively switched to trainer \'' + str(name) + '\'.\n')
+            self.current_trainer = str(name)
 
     # Function for showing current trainer details
     def show_current(self):
+
+        # Print the current trainer
         print('\nCurrent Trainer:')
         self.trainers[self.current_trainer].show_stats()
+
+        # Print other available trainers
+        if len(self.trainers) > 1:
+            print('\nAvailable Trainers:')
+            for key, value in self.trainers.items():
+                if key != self.current_trainer:
+                    print(key)
+
         print()   # Adds a newline - print() will add a newline by default
 
     # List Pokemon owned by the current trainer
     def list_pokemon(self):
         self.trainers[self.current_trainer].show_pokemon()
-        print()
-
-    # Function for printing a list of available trainers
-    def print_trainers(self):
-        print('\nAvailable Trainers:')
-        for key, value in self.trainers.items():
-            if key != self.current_trainer:
-                print(key)
         print()
 
     # Function for spawning pokemon
@@ -235,6 +201,7 @@ class Game:
     def run(self):
 
         # Opening prompt from Professor Oak
+        '''
         print('Hello there! Welcome to the world of Pokémon!')
         time.sleep(3)
         print('My name is Oak! People call me the Pokémon Prof!')
@@ -247,6 +214,7 @@ class Game:
         time.sleep(3)
         print('A world of dreams and adventures with Pokémon awaits! Let\'s go!\n')
         time.sleep(3)
+        '''
 
         # Continually prompt the user for a name
         name = input('Now tell me, what is your name? ')
@@ -261,7 +229,7 @@ class Game:
                 if confirm.lower() == 'y':
                     break
                 elif confirm.lower() == 'n':
-                    name = input('Ah, I see. So what is your name? ')
+                    name = input('Oh, I see. So what is your name? ')
                     break
                 else:
                     confirm = input('Please enter Y or n. ')
@@ -292,16 +260,16 @@ class Game:
                 if command_parse[0] == '!poke':
 
                     # Add a trainer
-                    if len(command_parse) == 2 and command_parse[1].lower() == 'add':
-                        self.add_trainer()
+                    if len(command_parse) == 3 and command_parse[1].lower() == 'add':
+                        self.add_trainer(command_parse[2])
 
                     # Remove a trainer
-                    elif len(command_parse) == 2 and command_parse[1].lower() == 'remove':
-                        self.remove_trainer()
+                    elif len(command_parse) == 3 and command_parse[1].lower() == 'remove':
+                        self.remove_trainer(command_parse[2])
 
                     # Switch to a different trainer
-                    elif len(command_parse) == 2 and command_parse[1].lower() == 'switch':
-                        self.switch_trainer()
+                    elif len(command_parse) == 3 and command_parse[1].lower() == 'switch':
+                        self.switch_trainer(command_parse[2])
 
                     # Show current trainer
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'current':
@@ -321,6 +289,7 @@ class Game:
 
                     # Exit the game
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'exit':
+                        print('Thanks for playing!')
                         return
 
                     # Invalid command
