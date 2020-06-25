@@ -1,5 +1,5 @@
 Things to Do:
-*Figure out how to despawn Pokemon
+*Figure out how to despawn Pokemon after a certain amount of time (HARD)
 *Figure out how to prompt more verbose descriptions
 *Implement !poke order (HARD)
 *Implement !poke release

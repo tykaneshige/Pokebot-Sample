@@ -23,13 +23,20 @@ class Trainer:
         self.pokemon_caught += 1
         self.next_key += 1
 
+    # Removes a specified pokemon from the trainer
+    def remove_pokemon(self, key):
+
+        # Remove the pokemon from the ordered list
+        for i,k in enumerate(self.pokemon_order, start=0):
+            if k == key:
+                self.pokemon_order.pop(i)
+                break
+
+        # Remove the pokemon from the hash table
+        self.pokemon.pop(key)
+
     # Prints a list of Pokemon owned by this trainer
     def show_pokemon(self):
-
-        # Check if the trainer has Pokemon
-        if len(self.pokemon) == 0:
-            print('You don\'t have any Pokemon!')
-            return
 
         # Print the trainer's Pokemon in the order specified
         for num,key in enumerate(self.pokemon_order, start=1):

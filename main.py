@@ -107,8 +107,16 @@ class Game:
 
     # List Pokemon owned by the current trainer
     def list_pokemon(self):
-        self.trainers[self.current_trainer].show_pokemon()
-        print()
+        
+        trainer = self.trainers[self.current_trainer]
+
+        # Check if the trainer has Pokemon
+        if len(trainer.pokemon) == 0:
+            print('You don\'t have any Pokemon!\n')
+            return
+        else:
+            trainer.show_pokemon()
+            print()
 
     # Function for spawning pokemon
     def spawn_pokemon(self):
@@ -138,6 +146,13 @@ class Game:
         print('\nWho\'s that Pokemon?')
         print(new_pokemon['URL'] + '\n')
 
+    # Function for despawning pokemon
+    def despawn_pokemon(self, key):
+
+        # Verify the key exists
+        if key in self.pokemon:
+            self.pokemon.pop(key)
+
     # Function for matching user input with available Pokemon
     def catch_pokemon(self, name):
 
@@ -160,6 +175,7 @@ class Game:
                         print('Please enter \'Y\' or \'n\'.')
                         continue
                     elif confirm.lower() == 'n':
+                        nickname = ''
                         break;
                     else:
                         nickname = input('What should its nickname be? ')
@@ -176,11 +192,57 @@ class Game:
                 else:
                     print('Successfully stored ' + p['Name'] + '.\n')
 
+                # Despawn pokemon
+                self.despawn_pokemon(key)
+
                 return
 
         # No available pokemon matched the response
         print('Try again.\n')
         return
+    
+    # Function for releasing Pokemon
+    def release_pokemon(self, index):
+
+        trainer = self.trainers[self.current_trainer]
+        num = int(index) - 1
+
+        # Check if the current trainer has Pokemon
+        if len(trainer.pokemon) == 0:
+            print('You don\'t have any Pokemon!\n')
+            return
+
+        # Check for valid indicies
+        if num < 0 or num >= len(trainer.pokemon):
+            print('Invalid index.\n')
+            return
+
+        key = trainer.pokemon_order[num]
+        pokemon = trainer.pokemon[key]
+
+        # Prompt confirmation from the trainer
+        while 1:
+
+            if pokemon.nickname == '':
+                confirm = input('Are you sure you would like to release ' + pokemon.p_name + '? This action cannot be undone. (Yes/no) ')
+            else:
+                confirm = input('Are you sure you would like to release ' + pokemon.nickname + '? This action cannot be undone. (Yes/no) ')
+
+            if confirm.lower() == 'yes':
+                break
+            elif confirm.lower() == 'no':
+                print('Exiting pokemon release.\n')
+                return
+            else:
+                print('Please enter \'Yes\' or \'no\'.')
+
+        # Remove the pokemon from the trainer
+        if pokemon.nickname == '':
+            print('Bye bye ' + pokemon.p_name + '!\n')
+        else:
+            print('Bye bye ' + pokemon.nickname + '!\n')
+
+        trainer.remove_pokemon(key)
 
     # Function for listing currently available Pokemon
     def show_pokemon(self):
@@ -201,7 +263,6 @@ class Game:
     def run(self):
 
         # Opening prompt from Professor Oak
-        '''
         print('Hello there! Welcome to the world of Pokémon!')
         time.sleep(3)
         print('My name is Oak! People call me the Pokémon Prof!')
@@ -214,7 +275,6 @@ class Game:
         time.sleep(3)
         print('A world of dreams and adventures with Pokémon awaits! Let\'s go!\n')
         time.sleep(3)
-        '''
 
         # Continually prompt the user for a name
         name = input('Now tell me, what is your name? ')
@@ -283,6 +343,10 @@ class Game:
                     elif len(command_parse) == 3 and command_parse[1].lower() == 'catch':
                         self.catch_pokemon(command_parse[2])
 
+                    # Release pokemon
+                    elif len(command_parse) == 3 and command_parse[1].lower() == 'release':
+                        self.release_pokemon(command_parse[2])
+ 
                     # Show available Pokemon
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'show':
                         self.show_pokemon()
