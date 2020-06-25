@@ -1,5 +1,5 @@
 # Pokebot-Sample
-Sample program for the Pokebot implementation (non-server implementation).
+Sample program for the Pokebot implementation (non-server).
 
 ---
 
