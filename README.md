@@ -40,12 +40,16 @@ python3 main.py
 -This command shows some stats on the trainer you are currently using.
 -This command also lists other available trainers.
 
-!poke list
--This command shows the pokemon currently owned by the trainer.
-
 !poke catch <pokemon>
 -This command attempts to catch a pokemon.
 -If the name matches a pokemon that is currently spawned in, the trainer will catch it.
+
+!poke release <list_num>
+-This command releases a pokemon owned by the current trainer.
+-<list_num> is the number of the pokemon as seen from the command "!poke list"
+
+!poke list
+-This command shows the pokemon currently owned by the trainer.
 
 !poke show
 -This command shows all image urls of spawned-in pokemon.
@@ -53,3 +57,10 @@ python3 main.py
 !poke exit
 -This command exits the program.
 ```
+
+---
+
+## Not Implemented
+* Pokemon do not despawn after a given amount of time.
+* There is no functionality for ordering a trainer's Pokemon.
+* No command exists to get data on a certain Pokemon.

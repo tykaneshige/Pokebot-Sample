@@ -76,15 +76,14 @@ class Game:
     # Function for switching between trainers
     def switch_trainer(self, name):
 
-        # Verify that there are other trainers to remove
-        if len(self.trainers) == 1:
-            print('There are no trainers to switch to.\n')
-            return
-
         # Verify that the trainer exists
         if name not in self.trainers:
             print('Trainer not found.\n')
             return
+
+        # Verify that there are other trainers to remove
+        if name == self.current_trainer:
+            print('You are current playing as that trainer!\n')
         else:
             print('Successively switched to trainer \'' + str(name) + '\'.\n')
             self.current_trainer = str(name)
@@ -104,19 +103,6 @@ class Game:
                     print(key)
 
         print()   # Adds a newline - print() will add a newline by default
-
-    # List Pokemon owned by the current trainer
-    def list_pokemon(self):
-        
-        trainer = self.trainers[self.current_trainer]
-
-        # Check if the trainer has Pokemon
-        if len(trainer.pokemon) == 0:
-            print('You don\'t have any Pokemon!\n')
-            return
-        else:
-            trainer.show_pokemon()
-            print()
 
     # Function for spawning pokemon
     def spawn_pokemon(self):
@@ -244,6 +230,18 @@ class Game:
 
         trainer.remove_pokemon(key)
 
+    # List Pokemon owned by the current trainer
+    def list_pokemon(self):
+        
+        trainer = self.trainers[self.current_trainer]
+
+        # Check if the trainer has Pokemon
+        if len(trainer.pokemon) == 0:
+            print('You don\'t have any Pokemon!\n')
+        else:
+            trainer.show_pokemon()
+            print()
+
     # Function for listing currently available Pokemon
     def show_pokemon(self):
 
@@ -258,6 +256,20 @@ class Game:
 
         else:
             print('There are no Pokemon to catch. :(\n')
+
+    # Function for printing the help message
+    def show_help(self):
+
+        print('All commands are be prefixed with \'!poke\'.')
+        print('\'add <trainer_name>\' - Creates a new trainer.')
+        print('\'remove <trainer_name>\' - Removes a trainer.')
+        print('\'switch <trainer_name>\' - Switches to another trainer.')
+        print('\'current\' - Shows details on the current trainer.')
+        print('\'catch <pokemon_name>\' - Attempts to catch a pokemon.')
+        print('\'release <list_num>\' - Releases a pokemon.')
+        print('\'list\' - Lists the pokemon owned by the current trainer.')
+        print('\'show\' - Lists the pokemon currently spawned.')
+        print('\'exit\' - Exits the program.\n')
 
     # Main game loop
     def run(self):
@@ -285,7 +297,6 @@ class Game:
             confirm = input('Ah, so your name is ' + str(name) + '? (Y/n) ')
 
             while 1:
-
                 if confirm.lower() == 'y':
                     break
                 elif confirm.lower() == 'n':
@@ -350,6 +361,10 @@ class Game:
                     # Show available Pokemon
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'show':
                         self.show_pokemon()
+
+                    # Displays a help message
+                    elif len(command_parse) == 2 and command_parse[1].lower() == 'help':
+                        self.show_help()
 
                     # Exit the game
                     elif len(command_parse) == 2 and command_parse[1].lower() == 'exit':

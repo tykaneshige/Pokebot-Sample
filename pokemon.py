@@ -1,6 +1,7 @@
 from pokedex import *
 
 class Pokemon:
+
     def __init__(self, num, level, nickname=''):
         self.id = num
         self.level = level

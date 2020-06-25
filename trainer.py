@@ -1,13 +1,13 @@
 from pokemon import *
 
 class Trainer:
+
     def __init__(self, name):
         self.name = name
         self.pokemon_caught = 0
         self.pokemon = {}
         self.next_key = 0
         self.pokemon_order = []
-        self.sort_type = 'none'
 
     # Function to catch Pokemon
     def add_pokemon(self, num, level, nickname=''):
