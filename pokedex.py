@@ -1,6 +1,6 @@
 # Highest pokedex number of available pokemon set
 LOW_BOUND = 1
-HIGH_BOUND = 9
+HIGH_BOUND = 12
 
 Pokedex = {
     1: {
@@ -74,5 +74,29 @@ Pokedex = {
         'Evolve_Lv': -1,
         'Evolve_To': -1,
         'Image_url': 'https://img.pokemondb.net/artwork/large/blastoise.jpg'
+       },
+    10: {
+        'Name': 'Caterpie',
+        'Type': ['Bug'],
+        'Ability': 'Shield Dust',
+        'Evolve_Lv': 7,
+        'Evolve_To': 11,
+        'Image_url': 'https://img.pokemondb.net/artwork/large/caterpie.jpg'
+       },
+    11: {
+        'Name': 'Metapod',
+        'Type': ['Bug'],
+        'Ability': 'Shed Skin',
+        'Evolve_Lv': 10,
+        'Evolve_To': 12,
+        'Image_url': 'https://img.pokemondb.net/artwork/large/metapod.jpg'
+       },
+    12: {
+        'Name': 'Butterfree',
+        'Type': ['Bug/Flying'],
+        'Ability': 'Compound Eyes',
+        'Evolve_Lv': -1,
+        'Evolve_To': -1,
+        'Image_url': 'https://img.pokemondb.net/artwork/large/butterfree.jpg'
        }
 }
