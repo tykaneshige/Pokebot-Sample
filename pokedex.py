@@ -75,7 +75,7 @@ Pokedex = {
         'Evolve_To': -1,
         'Image_url': 'https://img.pokemondb.net/artwork/large/blastoise.jpg'
        },
-    10: {
+    10:{
         'Name': 'Caterpie',
         'Type': ['Bug'],
         'Ability': 'Shield Dust',
@@ -83,7 +83,7 @@ Pokedex = {
         'Evolve_To': 11,
         'Image_url': 'https://img.pokemondb.net/artwork/large/caterpie.jpg'
        },
-    11: {
+   11: {
         'Name': 'Metapod',
         'Type': ['Bug'],
         'Ability': 'Shed Skin',
@@ -91,9 +91,9 @@ Pokedex = {
         'Evolve_To': 12,
         'Image_url': 'https://img.pokemondb.net/artwork/large/metapod.jpg'
        },
-    12: {
+   12: {
         'Name': 'Butterfree',
-        'Type': ['Bug/Flying'],
+        'Type': ['Bug', 'Flying'],
         'Ability': 'Compound Eyes',
         'Evolve_Lv': -1,
         'Evolve_To': -1,
