@@ -83,7 +83,7 @@ Pokedex = {
         'Evolve_To': 11,
         'Image_url': 'https://img.pokemondb.net/artwork/large/caterpie.jpg'
        },
-    11: {
+   11: {
         'Name': 'Metapod',
         'Type': ['Bug'],
         'Ability': 'Shed Skin',
@@ -91,7 +91,7 @@ Pokedex = {
         'Evolve_To': 12,
         'Image_url': 'https://img.pokemondb.net/artwork/large/metapod.jpg'
        },
-    12: {
+   12: {
         'Name': 'Butterfree',
         'Type': ['Bug', 'Flying'],
         'Ability': 'Compound Eyes',
@@ -99,29 +99,28 @@ Pokedex = {
         'Evolve_To': -1,
         'Image_url': 'https://img.pokemondb.net/artwork/large/butterfree.jpg'
        },
-    13: {
+   13: {
         'Name': 'Weedle',
         'Type': ['Bug', 'Poison'],
         'Ability': 'Shield Dust',
         'Evolve_Lv': 7,
         'Evolve_To': 14,
         'Image_url': 'https://img.pokemondb.net/artwork/large/weedle.jpg'
-        },
-    14: {
+       },
+   14: {
         'Name': 'Kakuna',
         'Type': ['Bug', 'Poison'],
         'Ability': 'Shed Skin',
         'Evolve_Lv': 10,
         'Evolve_To': 15,
         'Image_url': 'https://img.pokemondb.net/artwork/large/kakuna.jpg'
-        },
-    15: {
+       },
+   15: {
         'Name': 'Beedrill',
         'Type': ['Bug', 'Poison'],
         'Ability': 'Swarm',
         'Evolve_Lv': -1,
         'Evolve_To': -1,
         'Image_url': 'https://img.pokemondb.net/artwork/large/beedrill.jpg'
-        }
-       
+       }   
 }
